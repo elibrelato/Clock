@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,42 +22,30 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        GridPane gridPane = new GridPane();
+        StackPane stack = new StackPane();
+        Pane pane = new GridPane();
 
 
-
-
-        Date dateToFormat = Time.getTime();
-        Text hora = new Text( new SimpleDateFormat("H:mm:ss").format(dateToFormat));
-        hora.setFont(Font.font("Trebuchet MS",25));
-        gridPane.add(hora,0,2);
+        Text hora = new Text(Time.getTime(TimeServices.getServerTime()));
+        hora.setFont(Font.font("Trebuchet MS",65));
+        hora.setTranslateX(180);
+        hora.setTranslateY(135);
+        pane.getChildren().add(hora);
+        stack.getChildren().add(pane);
 
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Date dateToFormat = Time.getTime();
-                String newHora = new SimpleDateFormat("H:mm:ss").format(dateToFormat);
                 Platform.runLater(() -> {
-                     hora.setText(newHora);
+                     hora.setText(Time.getTime(TimeServices.getServerTime()));
                 });
             }
         }, 0, 1000);
 
 
-
-
-
-
-
-
-
-
-
-
-
-        Scene scene = new Scene(gridPane, 450, 300);
+        Scene scene = new Scene(stack, 450, 300);
         primaryStage.setTitle("Clockito");
         primaryStage.setScene(scene);
         primaryStage.show();
