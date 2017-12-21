@@ -7,7 +7,6 @@ public class Time {
     public static Date getTime(){
         String host = "0.north-america.pool.ntp.org";
         NTPUDPClient client = new NTPUDPClient();
-        client.setDefaultTimeout(1000);
         try {
             InetAddress address = InetAddress.getByName(host);
             TimeInfo tf = client.getTime(address);
