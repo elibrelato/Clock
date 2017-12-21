@@ -7,8 +7,12 @@ public class Time {
         return hora;
     }
 
-    public static String getMeridian() {
-
-        return null;
+    public static String getMeridian(Date date) {
+        String meri = new SimpleDateFormat("a").format(date);
+        return meri;
+    }
+    public static String getDate(Date date){
+        String today = new SimpleDateFormat("EEEEEEEEE, MMM d").format(date);
+        return today;
     }
 }
